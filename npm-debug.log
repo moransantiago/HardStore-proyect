@@ -1,0 +1,26 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'init' ]
+2 info using npm@3.5.2
+3 info using node@v8.10.0
+4 silly package data undefined
+5 info init written successfully
+6 verbose stack TypeError: Cannot read property 'replace' of undefined
+6 verbose stack     at module.exports (/usr/share/npm/node_modules/validate-npm-package-license/node_modules/spdx-correct/index.js:211:27)
+6 verbose stack     at module.exports (/usr/share/npm/node_modules/validate-npm-package-license/index.js:60:23)
+6 verbose stack     at /usr/share/npm/node_modules/init-package-json/default-input.js:232:13
+6 verbose stack     at PromZard.<anonymous> (/usr/share/npm/node_modules/init-package-json/node_modules/promzard/promzard.js:226:19)
+6 verbose stack     at onError (/usr/share/npm/node_modules/read/lib/read.js:94:12)
+6 verbose stack     at Interface.<anonymous> (/usr/share/npm/node_modules/read/lib/read.js:66:5)
+6 verbose stack     at emitNone (events.js:106:13)
+6 verbose stack     at Interface.emit (events.js:208:7)
+6 verbose stack     at Interface._ttyWrite (readline.js:775:16)
+6 verbose stack     at ReadStream.onkeypress (readline.js:160:10)
+7 verbose cwd /mnt/f/xampp/htdocs/HardStore
+8 error Linux 4.4.0-17763-Microsoft
+9 error argv "/usr/bin/node" "/usr/bin/npm" "init"
+10 error node v8.10.0
+11 error npm  v3.5.2
+12 error Cannot read property 'replace' of undefined
+13 error If you need help, you may report this error at:
+13 error     <https://github.com/npm/npm/issues>
+14 verbose exit [ 1, true ]

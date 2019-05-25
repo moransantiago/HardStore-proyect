@@ -1,0 +1,70 @@
+.navbar {
+	background-color: #434242;
+}
+
+.navbar-item {
+	color: #E9E9E9 !important;
+	font-size: 1.75rem;
+	margin-left: 1%;
+}
+
+.navbar-item:hover {
+	background-color: #434242 !important;
+}
+
+.navbar-end {
+	margin-right: 1%;
+}
+
+/* Font sizes by class */
+.smallFont {
+	font-size: 1.1rem;
+}
+
+/* Big sizes */
+
+.products {
+	padding: 3%;
+}
+
+.shadowBox {
+    border: 0px !important;
+    border-radius: 15px !important;
+    -webkit-box-shadow: 0px 0px 19px 6px rgba(0,0,0,0.08);
+    -moz-box-shadow: 0px 0px 19px 6px rgba(0,0,0,0.08);
+    box-shadow: 0px 0px 19px 6px rgba(0,0,0,0.08);
+}
+
+/* Titles by id */
+
+#pageTitle{
+	margin-right: 3%
+}
+
+a.is-static{
+	border: 0;
+	background-color: #eeeeee !important;
+	color: #525252 !important;
+}
+
+.input{
+	margin-bottom: 3%;
+	background-color: rgb(212, 212, 212);
+}
+
+.input:hover{
+	border-color: rgb(145, 145, 145) !important; 
+	border-top-right-radius: 10px !important;
+	border-bottom-right-radius: 10px !important;
+}
+
+.input:focus{
+	border-top-right-radius: 10px !important;
+	border-bottom-right-radius: 10px !important;
+	background-color: rgb(199, 199, 199) !important;
+}
+
+@font-face{
+	font-family: 'Monserrat';
+	src:url('./fonts/Montserrat-Regular.ttf');
+}

@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Creating Core System Classes &mdash; CodeIgniter 3.1.10 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="CodeIgniter 3.1.10 documentation" href="../index.html"/>
+        <link rel="up" title="General Topics" href="index.html"/>
+        <link rel="next" title="Creating Ancillary Classes" href="ancillary_classes.html"/>
+        <link rel="prev" title="Creating Drivers" href="creating_drivers.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div id="nav">
+  <div id="nav_inner">
+    
+    
+    
+      <div id="pulldown-menu" class="ciNav">
+        <ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to CodeIgniter</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">CodeIgniter Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview/getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/at_a_glance.html">CodeIgniter at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/features.html">Supported Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/appflow.html">Application Flow Chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/mvc.html">Model-View-Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/goals.html">Architectural Goals</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developerâ€™s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reserved_names.html">Reserved Names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libraries.html">Using CodeIgniter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_libraries.html">Creating Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="drivers.html">Using CodeIgniter Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_drivers.html">Creating Drivers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ancillary_classes.html">Creating Ancillary Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoloader.html">Auto-loading Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_functions.html">Common Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compatibility_functions.html">Compatibility Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/calendar.html">Calendaring Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cart.html">Shopping Cart Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/config.html">Config Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encrypt.html">Encrypt Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_uploading.html">File Uploading Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/form_validation.html">Form Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/ftp.html">FTP Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/image_lib.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/input.html">Input Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/javascript.html">Javascript Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/language.html">Language Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/loader.html">Loader Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/migration.html">Migrations Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/output.html">Output Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">Pagination Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/parser.html">Template Parser Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/table.html">HTML Table Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/trackback.html">Trackback Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/unit_testing.html">Unit Testing Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">URI Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/xmlrpc.html">XML-RPC and XML-RPC Server Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/zip.html">Zip Encoding Class</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/caching.html">Query Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">Database Utilities Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/db_driver_reference.html">Database Driver Reference</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/captcha_helper.html">CAPTCHA Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/directory_helper.html">Directory Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/download_helper.html">Download Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/email_helper.html">Email Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/file_helper.html">File Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/language_helper.html">Language Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/path_helper.html">Path Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/smiley_helper.html">Smiley Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/string_helper.html">String Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/typography_helper.html">Typography Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML Helper</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    
+      
+  </div>
+</div>
+<div id="nav2">
+  <a href="#" id="openToc">
+    <img src="data:image/jpeg;base64,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" title="Toggle Table of Contents" alt="Toggle Table of Contents" />
+  </a>
+</div>
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> CodeIgniter</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to CodeIgniter</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">CodeIgniter Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview/getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/at_a_glance.html">CodeIgniter at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/features.html">Supported Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/appflow.html">Application Flow Chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/mvc.html">Model-View-Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/goals.html">Architectural Goals</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developerâ€™s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reserved_names.html">Reserved Names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libraries.html">Using CodeIgniter Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_libraries.html">Creating Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="drivers.html">Using CodeIgniter Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_drivers.html">Creating Drivers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ancillary_classes.html">Creating Ancillary Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoloader.html">Auto-loading Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_functions.html">Common Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compatibility_functions.html">Compatibility Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/calendar.html">Calendaring Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cart.html">Shopping Cart Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/config.html">Config Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encrypt.html">Encrypt Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_uploading.html">File Uploading Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/form_validation.html">Form Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/ftp.html">FTP Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/image_lib.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/input.html">Input Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/javascript.html">Javascript Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/language.html">Language Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/loader.html">Loader Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/migration.html">Migrations Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/output.html">Output Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">Pagination Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/parser.html">Template Parser Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/table.html">HTML Table Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/trackback.html">Trackback Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/unit_testing.html">Unit Testing Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">URI Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/xmlrpc.html">XML-RPC and XML-RPC Server Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/zip.html">Zip Encoding Class</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/caching.html">Query Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">Database Utilities Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/db_driver_reference.html">Database Driver Reference</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/captcha_helper.html">CAPTCHA Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/directory_helper.html">Directory Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/download_helper.html">Download Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/email_helper.html">Email Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/file_helper.html">File Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/language_helper.html">Language Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/path_helper.html">Path Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/smiley_helper.html">Smiley Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/string_helper.html">String Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/typography_helper.html">Typography Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML Helper</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CodeIgniter</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+        <li><a href="index.html">General Topics</a> &raquo;</li>
+      
+    <li>Creating Core System Classes</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+    <div style="float:right;margin-left:5px;" id="closeMe">
+      <img title="Classic Layout" alt="classic layout" src="data:image/gif;base64,R0lGODlhFAAUAJEAAAAAADMzM////wAAACH5BAUUAAIALAAAAAAUABQAAAImlI+py+0PU5gRBRDM3DxbWoXis42X13USOLauUIqnlsaH/eY6UwAAOw==" />
+    </div>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="creating-core-system-classes">
+<h1>Creating Core System Classes<a class="headerlink" href="#creating-core-system-classes" title="Permalink to this headline">Â¶</a></h1>
+<p>Every time CodeIgniter runs there are several base classes that are
+initialized automatically as part of the core framework. It is possible,
+however, to swap any of the core system classes with your own versions
+or even extend the core versions.</p>
+<p><strong>Most users will never have any need to do this, but the option to
+replace or extend them does exist for those who would like to
+significantly alter the CodeIgniter core.</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Messing with a core system class has a lot of implications, so
+make sure you know what you are doing before attempting it.</p>
+</div>
+<div class="section" id="system-class-list">
+<h2>System Class List<a class="headerlink" href="#system-class-list" title="Permalink to this headline">Â¶</a></h2>
+<p>The following is a list of the core system files that are invoked every
+time CodeIgniter runs:</p>
+<ul class="simple">
+<li>Benchmark</li>
+<li>Config</li>
+<li>Controller</li>
+<li>Exceptions</li>
+<li>Hooks</li>
+<li>Input</li>
+<li>Language</li>
+<li>Loader</li>
+<li>Log</li>
+<li>Output</li>
+<li>Router</li>
+<li>Security</li>
+<li>URI</li>
+<li>Utf8</li>
+</ul>
+</div>
+<div class="section" id="replacing-core-classes">
+<h2>Replacing Core Classes<a class="headerlink" href="#replacing-core-classes" title="Permalink to this headline">Â¶</a></h2>
+<p>To use one of your own system classes instead of a default one simply
+place your version inside your local <em>application/core/</em> directory:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">application</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">some_class</span><span class="o">.</span><span class="nx">php</span>
+</pre></div>
+</div>
+<p>If this directory does not exist you can create it.</p>
+<p>Any file named identically to one from the list above will be used
+instead of the one normally used.</p>
+<p>Please note that your class must use CI as a prefix. For example, if
+your file is named Input.php the class will be named:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CI_Input</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extending-core-class">
+<h2>Extending Core Class<a class="headerlink" href="#extending-core-class" title="Permalink to this headline">Â¶</a></h2>
+<p>If all you need to do is add some functionality to an existing library -
+perhaps add a method or two - then itâ€™s overkill to replace the entire
+library with your version. In this case itâ€™s better to simply extend the
+class. Extending a class is nearly identical to replacing a class with a
+couple exceptions:</p>
+<ul class="simple">
+<li>The class declaration must extend the parent class.</li>
+<li>Your new class name and filename must be prefixed with MY_ (this
+item is configurable. See below.).</li>
+</ul>
+<p>For example, to extend the native Input class youâ€™ll create a file named
+application/core/MY_Input.php, and declare your class with:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MY_Input</span> <span class="k">extends</span> <span class="nx">CI_Input</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you need to use a constructor in your class make sure you
+extend the parent constructor:</p>
+<div class="last highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MY_Input</span> <span class="k">extends</span> <span class="nx">CI_Input</span> <span class="p">{</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+                <span class="c1">// Your own constructor code</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Tip:</strong> Any functions in your class that are named identically to the
+methods in the parent class will be used instead of the native ones
+(this is known as â€œmethod overridingâ€). This allows you to substantially
+alter the CodeIgniter core.</p>
+<p>If you are extending the Controller core class, then be sure to extend
+your new class in your application controllerâ€™s constructors.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Welcome</span> <span class="k">extends</span> <span class="nx">MY_Controller</span> <span class="p">{</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">&#39;welcome_message&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="setting-your-own-prefix">
+<h3>Setting Your Own Prefix<a class="headerlink" href="#setting-your-own-prefix" title="Permalink to this headline">Â¶</a></h3>
+<p>To set your own sub-class prefix, open your
+<em>application/config/config.php</em> file and look for this item:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;subclass_prefix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;MY_&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Please note that all native CodeIgniter libraries are prefixed
+with CI_ so DO NOT use that as your prefix.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ancillary_classes.html" class="btn btn-neutral float-right" title="Creating Ancillary Classes">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="creating_drivers.html" class="btn btn-neutral" title="Creating Drivers"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014 - 2019, British Columbia Institute of Technology.
+      Last updated on Jan 16, 2019.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.1.10',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Co^Y·83$ñ”Íõ˜fĞ3à´çúqšÇ(^}>²[ç¯ÌCâG¹¥2Õ¡¿Ú„(Õâ³v.{¢; l@P8†MÂff$³0›s¬@u‚´ŞrŠ¯}×#£Íì£‚¥Z!È~ZY™J'“°œ¯´~a1œelnœğLaÕîG!1—ÖèUúQHìEZ³ºˆ?ñHzú*fQ©0‡Ê"«·Õ<¾åÂÅ~a“ğ°ôÔŸk—8|P¸“s‚„ş
+ªâûj…/5÷HÏ‹ıÂzı6ä
+¹\»’4B<å‰\[éñ’~‘òÍZA+HO™«ØûgÙõéôBm<Û0ÖXš˜gØP×ÎšRxÒÓÕõÆ.ì0J³‹£y2; ŒÀ$Î¼PõÈÁXe¾ôÌ°Ÿ—\ŠaGb'÷áò¼³‘UÄİ|g› ­ÍÅp‹¤U2×3’ÿ	Eë¹µ„‹¢Rÿß¼”wJ13Ue^@7´ÏfÁ­]\ÁÜœ†,˜½[FRV¸l—@{E)+ä©ÿ3°Ïj«1ØÔ ÑÛQO¢¦3ó[ñD¡»*XÛVú°LmÂ,«ób#VjpJÔÓob5N‹Å¬.GS?ì¿–¥³vM`²º¢úqÖdİÚÏj¶Ï…&"×?´/¢qı|´Yü”~%¹ƒ,ÅR]H Æ]Zwwî`¥zv°™º¹ô´CÁÖ‡W;p¬5ÀÇbiu¥‘µ°=¢…ë¤ù2–îd+iİn©’VìÅ=…»pQ×2ïYĞ“;[F^q-~â‘Ê£#ÌşşÖ6‹Uƒ‚­ïã‘pşÖÆX†qh:¥ák8r8,˜×`ÆYæ¸†fV–­Ï<‡©,£sùØv©_e
+Z–‘6÷!|´íYî‡Á>ˆçkgÒâzæ·õ[ñ¤Ã…§Ã|LÎÍË,Ìñ¯«
+ò\è°®ÊGíÔZ1^Û‰FÃ
+–%3ÃR°•3—=ƒÿª”VCìx¤¬
+GËº¸L'V—[J›0VE.>7yÙÇTÌ¢L]<›œŞÛÔîbIiÄåÏÔ»ù\rŠBˆÓ# n‡>·wŠ-<£QŒ¿İ8™}´ìhÙ›ø‡8IÇÅl9tBôÒ´8L'ÅwR·TdPgs€¾mÈÊa·¬Ç‹-N¼kŠ¢µ¬™×TÅjTÚØ“+åY%]£ósNoGuYu—Iˆx}ãCÒŞSSş{n]ùRòx2"kõñ´©'…•‰ec89ïM_öĞ—}­ô@ÖS~trö”E]¹)U±´Ò=Œªf{–I\Y(aÇ¡•î>ìÌM ¹½œäŸïÄŸÊY¯ªÜVÖ.±¬Š£T®ß>Q÷¢,WZù_Ï‘¦?¸½üb\=˜9˜o¨u ¿³
+I}µ‰İÜŸXÆäîïÉtM©ÉÜéÍ0d|Ë\áÔm<~Jú§èÁb,ı$N.XaÄ$3ï]¬şò8º¥«ˆ¯FUtTüFö­èˆú^üï¹º,ò0s÷Xîƒ¢ñNÆ˜bØÚÍ¸k¨:=nò1;¡áÊL¦OëÇ ã¼E¯YÊ1Ì%œ}š<ÌÔ˜ñ™¦	?…KŒnÌˆÔ.|/òè,æ:„ ­×súY½E;=eè[A}#©äOdsÂÅ¹nlÜqşOó7ÔzÑ7ÒF›ğëh#Ş·`wpíz`	õ '¤ 8¢µœ¯¿è”pª2$­¶ª»èë„´oğß ÜAZR)¯=‘-€=èÄ!Œ!ÓçEGÇtÖ¿]|¾·5áu¶¹íÌñ*i×[¼Û¡ñaÊÛ	|æé€Äsşã	ãóÚ¨Æ™I·¸“ØìkbüoîÅ‡Íg“ÙÖ‰­¬GíhsÉé}ğ¡ËÇjµ°Ğ‰çl	ôœMA½x²a+7t±¯ìiãZ•´ĞÆ¯uxÆ&ĞÄÄë´©/–V¥’«*‘­¿U¹XEéğ—Ú|TËÜKÜÂç[pc•ƒ#¼åUìf%ídyÄìÃÓæV$ğù,³›€œî4÷c›YŠŒJu#”…t½a953h¯)‰ÍÉ8 íéªEVemªd¸(ËÜfcN}¸KH;¶¦Fü¸¹4n.À¥!Ì06`©q€sT+®7(èƒ“ÑC¿Yy¶qÌÂâ4Z­Ob@¥ïÂíz9İÃh‘h`}¼ ¥º‹Kt£¼¸g‹;!Ó·á*]ë/]­+À
+]+ò‹'$¦VØo«…Âl)|ÓEÜ^F›q%­ÑfSB~<ÛNå÷à›‚ ¤u<#õ­‚ş¤c¦É,]ÛÀ5-e¶Ùh(ÅíéK™eıI¬D!ç¥4ÎSi?ê5>æ c¸Y;mÙÖÅõû9šäDšVÌÒŒcj‘šÿ=ŒÓêú“˜ÈæÂzÎ~bÜb'ºE¶1ï:Íì£àïj6æ–ñÈxä/W'Ğåj–ª7@ÍêhPÍ£0çºÊ2Ärùæ`©jp‰(n'¸u<‚…^ÔÎ>Rz­v, ß‘LÿS°Â;>€}Ûúğ;Z9#7€Æš°Ú¡¤6W+nqâ”û{xÏ°?ı>Ğ
+­1•âÌÉlVT0CÚoYÎúã±AMÙ r²şàùƒ§“Ë´³:mÂu•%8Rª¤ÌÍ]¨Û|ÏïÜkìŒìİ¯ßƒù‹)G7ƒnâ9¿ÉÆ³†FÖÕäè~cvsôÓŠƒ\Îƒ#^,)¬b´ˆa¤Î™÷In^±ÄÇÌ.Î™ÈU°Uà“Üfä‰£|LNÏ«Ë9€qÍ”Ñ
+İEŞ{,¼KZS	?„¡	•ÂY$¨Ïa•ú,îPÇÌ¹KóHÉ–@×‡mx?´mÅÿlã¼º{'‘2ïî–ê0–:¼<B-ø¨İ†ŞP=CRG.¬fÕh××`_3$óU±ÑÔf~çîîFÖZlÖX†ñ3ê>¸ñxZœš;¨şŠ5“máTGßgáØC¾`ÏùRŒ£¯ÄZDe¾ÄøşûÓön|=÷û-´	™ôf¿’­¶À.®aÜ«Á&()Ê×U_,…û'çvµCHß®1brŞ°æ~¼ëIb>Ü¼Vı¡m3ş§m:óvÍVLÏÖÜÇõwá&7_íî‚¡ùÀ<İ˜œôcµBzŠsmş ”¥Q«%‰MI_Õyq¢. £ÏŸõÒ;U=\¢•£»	óØ[ŒµAœ/H¤ó
+ÃNÜSÔ‹9{¦·q.;Ùµ`Mñ3ßN4°×¿šy¾@Në™í_UææÑÊ¡Et¦=)^û†xeÔ!qœ>³Yğ‰hÅ§Ìı>ßH{IL¦—xÔ>tƒÙò‚R¾öQä,,ÖJìïR%ÔsôlÁÔ|éX#ñõï‹—Ó³>û@ŒËøGIı£ÄÁí÷âã·EQŞné	ú¹Q¤â0ó¹^+âÉy*·²^Ğ&s'2æ7_Íù •>FÛ6xC›8Âª5”“aÜ¼¡¯ƒ3†œfsö|‰1?Ã¶p®w÷"Ùcq³ıåØLÒnÃW™Ş£A)ìa)úrÌÔ«‘SZÎüª›×°"®Á­jµôVˆXÆyÖ†FIÃQ×áñGz‡ûú®XMï‰mtPÔ¥e^M‡[2èÕ¾™lÜ9 §¨ñš5!)Œ<_/Çöû¶ànÛ¢˜WnÙÆ>£ÇÍ¾ûáeğÖÚ±ÈÕKÓndº°¿Ü¢NH;~ËS²õA#îãq
+b·6ÄÇ»ËŒ÷™<78µ„=¸¸[¥ã¤‚ıàÀÏÕÌ~>eu˜õÍR$Ô¸Sp
+ãµûÉ’JÁva:KÚŸ"‹\óğÏ’¦¹;ãÖ®xºµËğçĞNœ[ùN»PbjeÛÃvÉ]=(˜3Çr=}šGò±D69íã^°rV™êØÁMêQ|j†c¨¿„}OEÑ~½´şù	³zGÁŒ°yÌ/§B&Ì±°’áüÆ"í#½eèyõ_.}Na@=ŸÒ&±IÜ¬U•'SO›é–U¦o4\âG³*î×æĞ*ÓËš^Ø3.ú¤´jÁ<óÁ‰ßí\¦C=••¤^Z´'3¥ÏN¼Áèğ¦ø'úûïÛbnZLõbRõ¥³))0VƒCãJ:Ìøwx\B–}šjÇ#X3¿Œqòam€ûTÆy#¦z+,VÜê¨å™öó¬Å“ÀmÉ+¶á§RŞ3NÏÿ¢³}*çµ0w€ïwrÁ­[Û3ÿíRÎõ£³ãô³Ñy869åøx6PY÷kÀ-UrJpw ®IËó7‡óùj©éidMíˆÓ71snÇ¤IN§M±t]¥“Ë¥ojÃ¡¡Ø3Í_™·ehfSgùİ¯PèˆÕ÷ò±MpDQ¬îîHÍ-œÍÂ¬ÑeªG®èãŒpWÌ¶÷s-JŠûƒáŞ†mxF<õ’XÏ¸!Ò_Y©½"æÑëâØÜÊÒF_2aæx&Ô‚¦áaË.lô9ĞĞÑwÇƒx˜çüaËÄÔµÀÕêÅeœ.cıc|Ç†±(_Á6%exËúøX5b5hÈïd¿Láàû¯‹2z;²N`“V˜Şf¾¾VÈÇÅ}.Nnm£UãøÛ–=è³Â’@Ò{§¥ÒÎ­ÆŸª+nÉ+CªVNY…BæXq+3ÅÛ5^¾K=ÇÑÿ‚(F½(Ú3³*İVh¶Ò¬¿ù½¬Šnå(¸ŒNŒÏfSĞ/Ì¬ë&âé¡]mğ-º»3Š¾ßyïæaÎ#c†6ìcşıâ¸œ=+†ÏIØÿâ¸ô$[ò´ùc3hşX+.fé)ª9©	j“Ù©y	ê\æê?ŒVã‡p=4Ã©ôá%[ÖìÅÙ‘0FÛù¸îa9uKoM=Ë°ÈşFYò(Àw;aEÑ]CVLg®dÖI~9môÿ„ãæAÏp&8ã£—HoìòøgDşöÌôªè»k9²Ù*ñÇîô~÷LW3÷i¸ošÖÉÈvoä?ë›GˆÎÜËÑü#şk5ıÌù[ñ]‡œnèôâ:Ûq2kRœ?æ³]IÎö=èÇÍì9¾ç&<îmGU»Ô§PŸASö™lõœ?á[W/ó‹5ópœu	Ô]*í7}¥¿›KnçL+q 'Z“è¨µ‚}ONW×Ù‘]o„,s…e'iCšUN¶âEksäIR«ôä6°Ê¿‰=çj¶XºÑBªkZÒÛ–:ô¥¯4Ï¤•Ì¬îg¥÷"×ÔhmETçrºÂš©{Lÿ
+lWIÏ ¥]Dûõ#8¢ßŠ/K¾ÃTÆ¯®5VÎjÌÒ,õ¸Ì"ËL/”v6°§|Ã\únsİmö ÕÄÁê>#åÓSÌÜ&Â•r«´-VmX“q›Ñ„}}çöâ¹ÒTJ7&²UâJ£œV·Ë1•yuÉ;E>ßÈ¡Y›zËÙ‹3%J:S²%¢ 5´r6jà~ã‚ŞÎ-^tD/Åû´¼`mÙ¤d«e|ëäÌåÆ«ÅmXÎ¼#E×€F'MÙÏø»ñ¥8ƒY˜‚µ:xµ1´_Û‹éyU¬˜/!ñgÄxzAœÅ95*õQC÷ÏÆ^Ñ_úQ‡˜:éiOÜQk?¢2n×°ßt±Ïtq|o¤$u
+›’.ä¹p·X‡IF¨IQÚ[(aÃò°´+bùÉÆÛº„ôgÄ¹ThId³r|pb<*¥'³¿—XÎ3b´jÏ×ºÆséYh"±WEÿâàÜÙ%H;Ÿ¤¶t	`=)âXƒ×rNøÿ;ÿ$®»L}‚s¾´¿ïø¥££T˜I¥¬×Ëù›ô–† Õó¤·)Š#ëªk…½œ©™½	é|å/x#íª²xºª¬o9m—öÎÖ2öÙ åÜıP²ôtêQz–ÖYQ‚óõÁ4KS*3’d6à­ĞÖûQä›èÅÉÅÔ»§™™w8S352¿„˜‡8xÖíÌOê™kxp›È±£éÁ~±‘?‹şKÔÑ_D=-¾–?Ï2†{†Bø`X‡?ŒàÀˆß•Œâ¦º¼h3án{5t80uÄàG^Úã¦ôD`[!ŠƒÇ¸ó^8†cSó]y7Ø¥ç¶¯‡ûğ¸IAGLnVPŒy+øèvğ	«¢OJû‘²Ùtc)ÆX7'Ioí²zØV|'« bÈÒ_*–v¯H;[¥uÑƒãˆ™·Ä¬ %f;n®	ÂÙúxdŒ¥Ì|ZïÄŸ2‚!fN‹ê¢TY§?
+I³Šì‰”v`ÚÒæpş{Rœ`¯š¤)ÎAO‰Ï1™×ÒËmóÉœÁÖË£¬ ÏC±DC£Œ¼ÒªÉÜ [¦ÉÜŒ—ÛzpªÍŠ:»PÚÿlAt¤Ò“!Ö	f¬hªÂ‰f!O¤Ì3ÌJ}™ê-Ù]Æ ª¹œÉÌè`5¡ÆZÂØeÃ+õ>æåO‰/hÇ°]såÎ`àjÎëıå-ØUCåÌÛ¦3Ÿ°I'í?Ù®ñ°¾.ÆSšXzAkÃ1­=;‘¹x+÷uv°‡{6“İ|Œ´XÈs_ƒ•½ôÎñAÎ"¿ ò–ì‡ÍñÕG³òzX…÷GÊØ¹nø¾ íâoÀs›	ÔìèDƒœ~KO!¤ÜajvâwV4½º ªXJ«IÆn¼2û6z­¦Šyõ2zgx.+Ù¬œsá«].¼3ÜŒw‡ûp8lÇá“i5H®lz	=¤
+ı¾±—ÕP3¡´£© nû¹·Ôâö½ˆ÷íÄã¶tzß•Ì¦ ¯\¬ó<ÌD9¯t›Ù/>ËezñœÍŒ»8sE7Ö£Ï:‹ú¬qô¢Õ‹·ø3¦.‡úòë¥ı:ß7ë—²Ü»V##W#G=ö[¢Èmõ@ÈÌâ‘é—Ók¥™4jNbëÇIs+VEÑ‡UÒ½ÛD‰ëïf¶àa“®Ê(Ê’ÖŒœr÷±—*é´¾1ØÄØÄÃ×g„È¼MÚ/¸]_ÅYd°ıyV¤I¥{ŠÙšğAÑNö¾Gä=2ıÂz>ß†íV6¡°ĞÂŒ&±Wâ¾UxOtà xraœz¥>Èz£Ï«Œ§0bMšÄ±^´2O±F8–[Åßä»ÄCQŠßÈØhŸx§ì.û˜¨šµ†²İådïº´C|÷6;şfLZS8Á|°kÌ¬êå¸‡v84Ü†-£{˜Ó4¡¸/Šû¶¢¼¯_ö¹p"(íÃy
+ö®mx¿»µ=1ôKogœ»;¥şIŸœòÍ¢»;•lx«³':;pw—Ÿ›Pßq¼ÔáÂqo÷r¬°g¶;1ÁÈ^‚~„¿ ÛmâÈ<ËJÅƒ{½}Ì’W2~Ì§Om3Ù˜A8ÎrTÖâ‹Æ(ºÑyQ™ÒÎÕ
+KÇx–pä?iV}–p3g²·-=¸ÆB×¦ñ©”óµ4·&Ø¦è$ŞÚÄ,£›ï íV”©©%’lb\EWë”l…œi(/Ö`oñy>ş+ŞF °+Š*ñ­z}Ëñ837ô¹§xü™ÍM2R[Cøº^Ò£íB9òp"ÛµôD­Cğ­‘÷+$%shè[,J4,'w`-Ş:“m¦F†ğëh3™©¶O-JR;mİÈ¹"I½n,w`_zñÊ@7æğ>Û¦¤gÛü°µOğÜõb”Y@ AAœ55›‘ÑêgTÊª¬BNÑÚaˆgsaA™§Êjñ 1ŒÊÊ]|n¿³mÚÔ…ÿğg’ş¬a¾ e)7„Â_ÃÊõAFª«5NÜ§±-ú`xd—±j_¯83ËKßi¾“öÖ/£‚æËØ”4ØGÿ5IÙCãõÈ»7É<Úoe_\ÁİRÖ#7:ÇøÜ©ÇqnœG¾Î²0lYÒ;{ëU¸/7:·²`Â’D™ªµë~é,øÆÂy_=†å\b§y/®a/¸ÉÒÀuû‘©K£;ôIlÒj—{ôÍö´¯7JêX^µƒKlå»ğ]·bµ~vl\B;6\!. ME}ø©èíy_–Ä“ô®™Ôâ~ú»¸ÅÌ£)`SÑ×ÑÆuH;$ÓÕ»Ù·¥ô7JÊ
+w¨Á½‹¡¼\™ê^o\ä÷:òŠŸÀ.Ñ‚ûÄ?Òıb9öŠƒéıæY4àQìÆ‘ğNÜ²½·o·£?òtË‚µ€ô­Å‰ÔZìÃÓœ{×éñF™‡Yæ‰`—§o©[¹.i_ÏÅ½¢Ò'åõò\wâÇÙŸ×ÒÍWSæFŞ”?hÃÁÁ(.f½öû€1ğâİ®(2ø0uÙ/á7Yu?Ñ<ˆ­
+rµnÃ—m
+ÚÛÎœó²½íû;ş9ÙÒçìu¬ãİ‰l2Uâğ)wİÒÜÍ#‘ ŞÁH³ÏÛğ±+Šdîo³hXıf8ˆÏk}ŒŞxÚ!§WŒ89oŸ&ÎgcUrX£ôy±FûÆã4Æó¶XF%µ™shQí¡!i·àÎÍnÆ¨ôëıH.Ù—JÂ|•’6mŠãYO Çô£¬z"'=¶tY›+0•e×…Æ.õlÚ¥§OÕç0ÊÊs»˜‡Ã¬m•¾º.°’_UÔërp&Nb–Bª{Å)æ·“í§™©zïÙÆŞ¿]l„°: üãâQÙ8Ïë„à£e;Äïg?]¼fZ2)©#™ÍOG,Õwãp€ı8s"¼ÂÂ-Ì´ÜƒUV'û{9Şo«e”´A4¥“hR²Ò)…h¾cæZT%©»ÌÜ]IW›Õk¤÷KVËÜìJú®Ä‚ÏJèF£·™º˜İ7èÙCÊ*•ÖN›::úY{/ $]›ôl±šµ„½:*‹k"wçVôhKqœ™ˆP(ızGNÎ?8<K3‡ÕI|G72sİ»E;öhz"Ê³³ÕÈTËi³ZZé¶!gÖª²‡9Nÿ1s†ñ&Êr¦Ógm‰lep›˜Ñ™ñy¨£Ó
+Ù·³œUèréå¾ZÌ#§±¡6™6Ô:Ùk¤õÇZæ6˜íÕÜ›9^éÙÊVc×šë˜É)©ÚÖêiœYÛ ·o­(Ja›F!ãú®bí.v0»•—K,i5ë}n>æãı<³±
+,)4â'!•~âHU'°/'ÑRµ•lËé”`t‚”²ëw²Ö–xÛE"=V½3Ë/Ts³àõ´öœÏ_—¸ŞÇÚ¡ß¸O}Í‚ÿ·TÚ×Ğqi_ÃnŸõœ©”®èZBN%‹g“SãXnİ%ñ SßgmÛAaf±á¸!Ü…œyM]yn*éæ •¡z\å¾5ïÂ]F¼ÑgÁã{ZÕÚf³1Sw&Ğ1™™µ+„™[Y‰^”ğ)ˆœŒjÇÚ`—®ÄaæW×Õ91µ`Oñå¬$Ÿ3U`%óüEUÕ˜¬Š£µ!n½\×
+	yù$Õ¶ÕĞ‹_´}¤›Å‘Ï&§7ÊLìÒÊãÖrS>Ò•c¼¸ÒsÔô;«ÚŸŠ¬ˆÕIšr•ú"’¤§Gt·º–ë‹¡}ù2UiÂ7Òî¥‰QXÄÙ¬XlUX©-Ã*63iÒoëĞJ-çgÒ™z±ŒkÈã9¨×3ÛÒs&¢Lµ®ıi‡?Iï×f…[˜iÕ`D´2TbLœ¾Ë¿€Ç3-Œ¢àV¸G«Ğ>jÇáØåÃ[~#)óü!Äp™é´cZiïDQğ;í£¸YèíÌB¯©ïÇ<ˆÄ?~ûÕ1|öq|Çì½(ß‹£œÆ‹¤§W=¯~}âXTPÔ³í¤X‹a¶-âµi_ÛÔôìÀ5ä	Ïb§`kBúx–—ÀÖâ‘pı¶Áñ¤ãX¸‡£*µR#–õ :|rî“¿²æ{v@Îj-†¤ØcE[õPäÿıXâœE…]ñlr*íéª¯‡çÜ®}„Qj‰³ÓÍ=ÈñlÅ×6n°{ ³Q¬®jX÷ìèEn«ıdJ®S° °Qks£ĞâÂQÎË;¬•Œ7WU: ­Ê_ÜÉ±‹1ğ–í¸CÌ »´qlAœÑ6#)?gaÔø*ûùŒ‰û/ıb’/£'·£¼öÅ9º¤‘Ú!­(NUqÔ}°-^-S•ÌíQ7à•”.Š3¿LA)÷õZ>”FOÇ³…-ÀÏ£5¨	·cxÛ ¤_­Q¹Ñ4T‡{‡%Ÿ9¢š‘IIo…ªx•#{ÈÈˆeÄ×Áz|3ø<êÆ¾ÀBºˆgsâÏ•H	†°1ØÅçB‘_&:ˆ¡_S©	ê´Øæ“ZÊmXTÛ‚—ıJzÙÀÇşVØ­@ A?ğˆ¿ù{ñ¸ßŠ÷RøT:ĞÏf@”ß¥~Æj¿vÿ¿`êsã‹¾vüŞ×ÂE ãX7¢¡¤h˜9§WãIeG×cÄÛŞnüĞZYÛ¨ísi²!­ÿn(dä"Ë aö±ÖN>Û‡×ìV¬cşı¤CÚá¬äÌ«ÆK7öX˜S_‹8³*ÖOîÎ¯ÎNöWáö´FßÏÜ‰œ!;Zuº’ÙĞæòùtWE2Û ^®Ø…#[p3ôh³Ä‹:ïÕŒbsù,—ÓSåŒæİœm‚âSÚ|iTÒ—ÆÄ•‘Q>ËË{q¥Ñ	­Ñ¿±_ğwÁF(U²YğEéyæ¹ÓÌs-|¼ätÚàÅyC	|sìÌü×{Çq`æ&ö×âŸÅV$ë9ïíç+è]İºaS+³bdó¤U¯RõÅı’o…† Úé››¿I¸qXÓ€ ³¹ çÔÇòg³q¤ll‚vã/øª Šş‡ùu4õä¶pfa%È™Âd®G@ÛÍßK13¿ëòC¨Ñ$Rf ò›!»4­øRóƒ´VUZ)„¹öfœgn/½¿¤1â‚:ƒfå¥°y#{s6å™`b&2¹Pjã_™_cy1/3×€Ü*ìÌmBœ:›âÔÌFÔf¬P»PªJ—Öu¶0³Şc8Z*‘™kE´¹O¢¿CbBqæ&ÎAñókzÎsrªç¼Ø hq=uÒ®Ä
+áynm¹è¿Àø¥¤~ñrò‹Kh@fI¿ĞrGúµæ8º–ÕøGµQäKÊk›º™uu}¯§Qƒ´—i*»O<å~Sú%¾Ñqœ¼ÜLÉİ	[z¿hŸ¯¾KÛ‹×gçX•s´˜6ã]Ï1ÈÆ{àoŒõ‰}‘_Jé'bzY¿’|¹l}Í™¨vßßd·×ÉÍçÈXJK&ÒØ¦ñØ3¿m	4cG"}¸KF×Úv2ÿúÓ«W±ªZİf>yÂ¶ß­’©şxtÃx7ÚÆå‘÷±nÏoŒüË?J·£<<ƒÊÃmh
+Wá gåoÂ1œ±M¶/í=­?ƒ§FÏBVÒá$2†e|l*­,ã«ÊR4¶Á–¹ßœú­ß’Ävœ3‚0ú¶Â£Ò¯8İ8ğ]ä—¸ŞN§CÃ †ƒ"{Oií)õ£Õ%SÕmÿ¯Ö|º-Ì#ÆÅ£Ş®=­ÃÜvó)ªi!½Ñ9ƒ-–Võ*©½?‡ùò—%Ò»ü£êû¸_o÷¬ÒïBTÓN4zä¤é˜?IzJ¸q`ìæ=hãùüY¦:{¹³ZIß¥¸X"U'}¶V¯¯¹9A=Áªå	f]¿—\IÒ[‚«õ{"»¥ïÕìáó2Õœ‚ş¿µ¸¿8‡õÚÎû¸Õ;!ı6Nš–ós¦oµ9´£®Ì"µOeÜ-ñya[¤cÚûp0c½1[À&S¥9JëÃhïÅıÒcEÛXóUãŸ&9{Ÿ´wHúİÂşìy‰Üç	Ö2•ï‡/K¾eÕ&­'ßË
+1>²û—3Iï´VÒë“¦0´C³"oå]ÀÑ¡3ÌbèøĞ¿¤_l(„o–´ƒ÷ï­^Üìƒ?xKCQŒ'¿¡c^GäÉ0Ş.ÈÙëºq´ït½É)l§ıÏáá€7r~~v@ˆìÛ^)îÂõşb¬d¬¿Åÿ-ó³ø·”ú“è‘şÿËÔ›4ueà'!€à* ÕÚmúhmµjm´»Ö@0!Á`  ìOÂ¶ ;îK÷êtºÎ´v›é¢ıÚN§™ÚÍ:ã´S‹Kİ˜Nç>;¿ßï#1yyyïİs?çó¹÷Üsù¹·ã£örLt#>ğƒİ+c=Ş¢ö>ñm›=íN<ÚîÀHÓÍôcK,Ûƒ7åµ¥#¿-šŞn3âÃ¶7”qş¬À‡¿
+[Èx3±ÆmßËßÙŠcMJº­9œ¾m–â”g˜®ïa•;çqF©1«D’g7£N™iñş©ïoÀşó÷_Á1ÿ¿™ÌÙ‡_+vú¬8äkÆÇ¾\Üê©£5wĞGŞùt+bØÜ0a•ÈÆ>„Ğ4_Î,èñ=Õ¼y·òs«
+ú†ên¸,0×Q‰ïjbè»šQÔ†Ó:…z{L¨÷½UòUbcM-Ş¬éÇŸj¶ãdè‹#¬*–PNu›ŠLÕQÔS=‰cÕZüXİˆµ	¢>.À·FòT#!˜J±Ù«wìäo)iye'U¬¬ëOÇÏy£Hõ8X±lÂ3\ªø'•e|‡bıV(=ä9­§•ãÅ~ç!îïáë¢LÊr¥RSÙ5lIôlY¾¼š^wıRÏF °87ë\·ı"6¶¢d‡DÏ›:0Îm4=3Œ}íŸ2ˆš³7Ş?àCs2‡+”Şt—À^*ò)ï÷‘R<ƒRŠI=oßæb•¡¾¸
+7º¤•+,çøùş¼yšq?_’Î…ÓOEç *˜÷c×Eˆ–ıï9W“±HbkãkWReQ=_´¯]Æ½ê‹Å
+á&aFU9 ê•×ô‰ûo*‹†ù<‹ùİ7çŞ¤éÄNÃ_;•üA±ú¼èEããüù“Îoùw~bq‹‹~ÀZş½CÎ òdv"×ùö;qˆõî«Î±äAçÃ¬Vöèş‰£½§øÕà5G#â˜c.sN !û.E’¹›Q"“NZWP½=MECöŸğg{8£ÒTz¿à&î<s^^‡ª V´†ÁÚ—Ú¿2>‚“ÖHŠ¶OãÿMgÌ˜AZ»”p<g˜ı2R3(Í)9{"á©f7Æ8Zôàìš•…®ÀVY£i•5€5V/«+†¬U¬˜Î¬³OÛµåßµwNıöá¼z|”'fV»ğvnŞ:-’¦[.!Şbg~ãÄ]×ª¿y^x ÷WÀªõ"ü[›ğ[Ï`Ÿ™ã6s7ÍYÌyÎàŸfà@®èÃ!Yì³fRÿòÂmæ0ªæW| Élƒ´: UBmtÑS"=jšÊvO›ñ±é¸È
+Pa–¨bk-f˜º±É¤G·Y•Iâûsñ3u¬¶ï£mÆ&ÆÏ›9¢ÜI198³~ş½EñrÅ¦ÓÜ2çñÑnVTúQÜ[ÄlÁ-Q‹¬£½Y;$#÷Ÿt#ÈÖŒaîßì-JöìGpQ„oG¤ïÄ½sË§ÇòIù¹ä£À>~úøÊØ¯¹'îì`”Wsl]g,‡¨<a2Np‹T2Zâè%C4ÛxÍğ¼c¨ã_	áØ#ÿûº>Â€=†*4œåéÁ+ÙÓè•ì	¤T”exÃ¿Ğf}#Æ|Q(!ûÇ«PJËŞköIætûSÔm!'|BÔMí½„Ú6š‘y7]«O¡úYl8ª?	ÊªÀaÖ·ìq±G9Œİl¸ƒ}oRÛÂ>ÓkõåXªg]«Ï„Q?„B½ˆÄAæ±rÅ£¸˜¯6—@hd¥>‚Tz/|óOïå>%ÖÆÉ>ò’u€ÙdnÈÌ‡7óŞÊlÃã(Y7ƒ-‚4r4%õ÷OˆzpÑ™“’~Kô‡>²eTÿ6Ã…0ƒ5İ%nÉ^Ve½ÚòÊ %Gäpæ*¥¢•ú˜#©ÛJ+?àùYµD5¾1Hñ5¾Z~^æ£WP¥ıcù%lĞl¦ô´ÅTÉf€'x>ı2HÛŒµ—!ÆGËºÒØÒ¢()}bM€£ßó÷è†qI·‹ûM7Ş¸ãxÎsxÕù£ØĞÌæç£¢ƒ¬éŸÒ¼¬8¡ù	ii¸Ïáøà¹ÀñZğ„ˆâËüëŒ§|\»¦ıÌãÏÚ#Ò»Ó\Œb»àKŒÍ¡Â1“y ·ÏIwi°Mg0“YàI¬ÑÌ Qo@³ÇÓş‰]ì¢ÂU*zÌÎGÙïöè~À-Ì®‚Ïizù!j“å(óäo¤itARpOéÅ$ãÈ¾Æœ®Øpß.,_Fç¤ßJßKßù^aöW,-¡bi&UHs©^J ¿”Hÿ÷p¹`BT@›Ìåoî–+˜|‹—5ÿDDº`""C©KÒ,]áıR-sv•<%i®/”Ä,ø$\Fbm›`ïê¶I`ª…ÎØ?¥şZú {İ5˜Äly&›B}‹-„9ï¬a%ŒüÄ÷ûÑî¼¶gø	^1t ›ŸÙ]ƒJf¿ÕhOD¬4Xluch³Ô£½á4½Ï5oÂ8&k¥sîZÉŞóƒtøï¾ée–$¾W÷ÇŠS}{ñP[UvD°…rï+Ácb%ÄÃ J£¬‚ÿ¸Å]W!Ì«˜ó,:¡ëæë‰Ô:ë÷W5¸­9†Y‹ß6+Ô½ËºZß!æç®Ä|ZkE7øÃ¨Ä¯P¿m}¿é³³¶¹rê·	TSÉvµ¾»IÖ@â·ğ-cÛU“¢¾8ÿ¿	–Áa¸,°¦TIkJ¯àHGNÏE>—’ìî‡h{b~Y&ø¿ØÎâg<G½¶PBq8+6ÊOqP®&%^1´ó1“ìã“x×)~u„Uw8‰µÅ³^Èsü†rWpÆîÂéü¢yŞ‚‹H×ÛéŠ)•£Æ\Š±Å°)IÅQn¾ı
+n´3\sÅà“õG¦[îL½ËªPJ²­âÜ8ÄñãYÉñã
+ÇInOq=}|oİ¬–§¨¯,»ÖìÅÌqÌÌşAbİ³¨ñ¨Iä7¯×ïãOÍ³£ÆIÜ=OŒ¾Ï©Ã”ò0VÂgêÅˆà²¬V„d)92]Ä²¬IFY6ı$:ôW%nK±~õYî×‹ØÏ§ÑšL~¢™¥äg”k—íÑñİèê;·D0nO‹d¤P¨o¾éAmét%ò6ğ·/ã°†#cÚŒq¯	×Ä°…’àó-šI¹%·Ë³›{Ò|L½ÆıtO>i®V ü„ûK>÷—|éù¥ÜO®f¢t@ô™Ü£²åşãCvyµ.´±÷I‘Æı3ÑîÁ:§ˆ¿%Ò#x}–Öm{œŞ­Mg/^Â*m=4¬bóÃ>ìdiÁRîOÇzCé­Á¬ó0Ìpöà˜¼
+d;óO0·‚¬"zFğHO#¤;ÊL{ñ-¦³«Øz¸OøğyÛ<`Ç(Jü]XÜTŒ©ˆ¤©`
+=ój«XÃdß ©Â»µA<TB7ˆÜ‹%ûp?ó«ki¹'¢j¦±•¢º6”ZåÚôbŒ»ÂT?,VÃ>ïèÃræ¨—*&`¯îÃ—n%}é®ÁR™½¾Ï2ÈşëDXqbl³©ˆuaQAûğYØíXáìç÷ù^ì|÷öœYñD{GÙDeû—¬Wğ{+ğoëÖmÛÛ­!Ôjmƒbşn¿
+ro5‰*o5‘¹…†¿¡›MÓù[MÛ1dv!qk+n6õb…©™ı´bÈm¬cÌ¡Ó9¥(½FÒg:ã6\` b†àŠ]"ª›êúğVS3¤¤ÆeÅÒÙQlJòf×@äóÛí²¢?e}Çˆrƒ¨€›|4Ø…ˆÍJŠØüûr®è¿áklAÓ¦úİ¦Œ§\—¥ñCDÀµsè¯‘lø6cG7?ÄÚÆ{¤ GÂ&±?Wjm}ïÖÆiˆ§ÓJq{úvŒ¤—ñ¾…'­'ÒöpT‹£—5ÓØ¼˜>ÎÇÆ§ùq&.ÛzƒIäÓ¬ÜÁGÕ “ãŞ3šssÒ€9z#îåë)bï¯‘ê½+¼r…7Q)n$İ¶D•)j¸pŸô8Şš%ÆÔ¯ÍUÒßâ‡ú1>ïÚìcºó×]Ÿ¯ı9¹L›V©}^Q©}œª´±ŠjíŠZíµs®/³Ğs‚ëwÅ²]­lºsxêvFQ
+óCQ~"Åj÷Â=ƒFúr¥¾ÏÁ¿ š%´ÄPH«x? _ÊJ¾Óò¥_”cµXy¿ÜÒÕ•3iuåVü¡NI
+laïWÒÃğño¿Õ4} F®ı”mİëËTôUYW8ıÉAMòDÍkE°Ö!˜Áª®PÒÅÙ‡åßØ‡wM±d³E²µcĞ‘…#VàöRVÃW…OÍ-rMæfü;´3h‡6Š“ƒcmÙßÜóVĞ‰ù›»u'­; ÆÓå5ËÅ¸‹ùU­VäÑ\—OÈÌâ–A€Ñ™ö;èãúE´µs6›‡º¢©lp UÄKúPîç=cÈóD@Ìú»»ğq½ŠÛ=ß)PûxÎ¤¼6j;ş[Iÿ-+`êáçÖtïDò%["ì÷âü+h/“èûìNöËdöö9l?qOù–ûS}j^—–%æÒÅÌq5&æ]0îÅøÑ“û êJLeÖ)ö©AÎ÷êƒ6ÿĞ¥İÇŞeÆŒ·Ó¿¹MÛìFÎ›çä92è­Ú¥dÄ3*Ùêñö C»û`„Ò'*:lu²¿Ît-šbo–_geîÄ”F%MiÌÅSÍİø°9oÕæac]>g^²ÜCÏT+ÙŠ°®f_ÕTò{@…§««óp¦t:)¥{ÊÂ)É#²“‡=hğÃwÍ0GˆÊvä9D®Á(cG[ÃòäÆ0.)Ù:ËÊp“ğ°Ÿ|e)Á½Ö|<jRrlô!Ş\›YàÆ6ä0nT™Zp]ÆêĞ+Ù2Ø+Îá†ìJ~/”:3ÏáÄ&áÉfFÿ«k…ZĞ•Öˆ÷Òê 0»{ì	M‹íĞèÒ®ÍnE™v€Êµ·)<Üë*´ùÓ:Í2'O¦#3Yˆ:J%8?°ñ#Véğ¡³3„îñËıàoyŒcSøgÕ^ó^F&YÑN$‡dí†VÖ»—R¨$1â/ªŞ¾ìrñ÷RÜÏÔ4Ã{³MTÔp²àfÍA•µ‘<•¶9^²>%Ft
+z6wOn†]{dOgó Ñp÷¯ÕXÅ(Æ%H³n¶™ØKn¶ğqõx-CIßdˆ¼ŠrÄdZÄLµö‚ö%ş{¿ö~íHçXÎ=¦S“‡¿hîDvÚæ¼‚~e­¬ñ0k Ø·ö!7iî…ØYCZSP:„gf­´ëh²îzî]qô›H¶P:5`Å÷b|æëª+*»”ôÇv|Ñ#-¸6·cóE–ßA~ÿV4´—bEW*­ÊMÓíÀdİ½ø}ƒ™]K\³(¦†¹QC5!ô×š6L$-·ø“rØİvøXı0Ğğëz”œrŞ’bn_ÔyQåó}”i_Ñ=†¬ÌÅ4bŠ!bÌ¥\#^µä¢=¯ #¦VÆŞ4g°WEs¯åÈF;Œ‚?mõÓÃ5ôù,ËvÀ›]^V-”!fDÛaƒ”áå÷XÃ²w•iÒ4ÔËH4OÅZÇ‰Mº5kd>İÈšJŒ&‰,‡ofµÖ¶öùVv™p ‹±kĞ‚!1ÖœJìı“«>îÏ¡´²»AäıèŠú¡­íÁy_\m!ôj‡@¨³:^0ÇĞf?®X­øÅÖˆ"Wı½Â‰ñkşY¼~í†B¨LÀ¶+¦\(uó¹¯D³U°Ş†èì&¾ÏÚÉ¿É‘MÉ*7VWŒË:7Ê2Si¡÷j®«R×}ì?û8z´uxN+ö²3z•ÇwŸÓ–!‘ø&~k4}ÜçRÙ·ÏÉëz.ô?ÔV,çD4³òé’mœşYg£Ûº$
+Î¢ˆ‘(¶QTtã©‘rcbş±4ƒ6~6ÀMÃ•XœJ‹X
+–0®Ô!iPdmtU§{wà¶®pšİÃZ¿'•ªª?®ïâOLÕIA?2“é[Ö2ß6{`h§@G#~ÛyõÓALÄ/ïÜÅÇ„Òâ&7k^n³ÿUitkD»ù5üJ’ü-¸ÃïƒÍßÖUã”/„büµbF¥éÀe÷µt¤z{n[~d´\Rëe$u§˜[^­Ú‰#Õ«®Ãojjp²2’¹E(_k+ºªÅØC»áxÎ“|–ÜâñÁê:f:9\*6/¼®^Ô»Z™/úøıíøÄiE°¸×1Æ\Wx‘6æˆWpÉÖŠË¶zÜm¯bşÔN6ƒ4İAÕæÙl*RY|ˆ±„“È®ãt®„Oœµp-yNí]8ÌÑîIS8-7'ÒJs*?‡ÓY>Ü?+&'’uËE¬ôøïßËÊTŒ0vâ(sŸËÆŒIè9*‹Š6©üü~ÌêãX=›DÕIV<!&ÖÑŞ6+¨]S±ÓFÈ¿®_™PÚdVTZÙ[/á›Íè{fßg™96"ÙãõÙ
+æ‰AŠœ(¥1”Â0‰Z£¦ş'6—!^_Š¯3Uôuf~·©ù›¥Ø¯øóˆÌíX“ÙÁ½ºŸjn Û3ƒŒfkG†®ŸéªpNw+Ú0 jïÄíõØ‘±g>IEZR?©öh+1%c<ñRÅÃy;øLÆH×JÌ£37P±•ÁÍÜ°ƒû~§æßrŞ÷2Í,™~gô1KìÔ)éi]8©Û$š"æ#éOb-Zz ÿWò@ä=£Œ‚ŸXŸmbåÑ`fæ"sî‚$s_—×ÜŸÆÕÿ½Ã×ª
+/ÒşŸ¢Xû¶Ò¥}GéÖbº“f—|CæöBú{÷jÊšOÆ¦¤ó;U´h·§vv·ÎæöwÂ57À-cH¬ô™¢––÷ŠÚ½ßl6òÓ­Ä-Á(y0Ïül H^K<1oŠ½ïYå…¬¸Æf½ä²A‘ŞB_ì¹UÖıx§#ïœÉVrf‡•]"w®‡ç‹¹(½X·Û'¯ÛmâcsÕéÀúÎ>3êp"«Ã†}üş:Ê`n¿À±dª€ï×¬¢ş¤o¹¹ØÔI¶Mâv‰‘PÁXÔ€ÜI¤9ÈÜdßŠ¼Æz¡±šïy»æºŒ'qÊ;Ny=8ï GêíÌ}‹õ5¥üäWzÄZÚPšQ{	ûjüŒ;yâé½Š6+¶V*ivU­¨lG¹şi¦N>fk»lx+$ún´¥e³©´,ÀÜÙˆ…¢Ø,JN§v»â¿ÎtË»‚‰wú0»$_–ˆì'¿3ÅŞÍªÈNI[—Shş"z¦`›’B
+{ )R’ª8û×ûy\FÚf¹¶Yl~;Îæ·bJÂ„n¯<òzcín#1Š“ÀşôX^$=–çbv™¹ëƒÚ¥EÿÙ>‚¤­Fˆ½¸nÎ³qÏœÉØÉVÂ*&Ÿ¹Z rE{1'c^vÜ ö…òÊÕèÓç‘eaÜa¼ßÇºê
+ßİ²Tš=>O´€ğsOW\Sİ™é:îw0ãMe›Æqi¥nîÛt8ñ~Ñ¡Ù+¯‹ïÅİ3Æ˜7n(œDeQ{°˜E2AÔ_3çÕ!z[;î¥O4‡}«•ıº‚{²ºSíÖsoöàz‘?Âıırz4]NW‘[{‘µ†bE^§<Şçéëâë
+Q§ıôTºGÒE²V¼ÈZñ"·˜.-œ§ùX[Šµp¿cœÕåâ£~Ä£ıÅş é|d:c@–¦± a|‡”Í‘ñ0ãEåkCJ±RñRÏ!ê\ACÃó¸¿LcSRŞ]Ø¹§{ö´ d~‘6ˆõ¬rãûÛ14ìÅàH5³RO¿`Vc>šJŸ))l¸÷·¢zXdöEh¬t³/½2èÇ[ƒ½°‰1¬zúM5t¤7Š­G{CiaßvÜ>Ø…‰E7ºFøÓh´¥¸¼>èUÌõšâÿqAsÔÃx/q)³ÜE¢*©37ÇûIwdyç,µïåH¤PÛ¿ŞÏœk%VÌgI«İÆ'ğ•Qğ[C›wÏOÒ‹9ºZÉºAT·¾#_xÅ‹_®‘Ê‘$8Rƒ*Úl….È‘;8±ÈbBJ.75áîÄÏƒ¸¾'”Š{ÂèéíbNø¼İ¡/6×á¥%û·‡9ÃX’Èlu-´˜ÅŒo6u'Òœ[#{ºù~´ô4`¬»ïuWá£îfX—ô;F‹üİ•‰eşÛEÿíøOv*Ôõºñc×Ø¼å;ù¼Ét¨})}Ô>wCáTöĞZ¼ä$uÙŸ¥¤^f¼Õ`À=‚¬p³õ¿”Ï	Àb.ÅÙ!ÃŸ8¯ö³‹¨Ä.p¹Câu„=7Ô…ısèx³Š­™ÑÍsKôm~¿‹›ºpcSİÖÌÚgÁú¬a¨üQ¤ò7¡Æ_Ã¼;„ÆıEÕL¶£h}>”ùšùj)¹v=äCÖG±U£»ák¾ÊD“<æXƒ‡¼ÿ@Ÿ·QŞ×áµzàãÚhú¸ö jëŠ±½.„3§¼İ¶ÇÛö"¹vjY×Õ†ÓëµRòsr•Ş}rUÒ±ë—w>†¡ªXfI*¶mÌ…™¹YSÚùı˜ªC©§ºÏTd­´ŠYU!cl¡GEŞŠzÔW„Ó¹Jq®ıæ+4­x+^ÔÕPeì‚¨ûá6àtÅ¿Î·ÀÈ~5…¢4Oan'ÜöÇøÓ¼ë´Ò¥ë(Ás{¦GTËŒ¤åFyló4|IºİÈuà¾¹º(šĞÕó¹C)ĞµŸıĞƒ±DIÀ~ÂãR4ıKº…JïIÿ‘üXÆ¯ş%“Ş•şæmÆ­ôé/Ò÷üz/(-†uòeU8Q.Ï9;'± (ŠûO;lE•0“zõğK.‰Ö3B½ëT¨)í§Š¾q­nnPĞ¼ÖZî¥™÷çkÌ1:˜ëUcVá²:"Ø<(uTày©?úi¿sˆ?ñp?,À-à!‡DÕÔ`WşTÚ•¯¤/óƒø)¿u%HMŒgQùmˆËß;ò'æ…+èum;Nuñ“MU|e§ƒÖšo¶ÚogSÒıì¬Qûr-™¨X±“hBPô¹ ú&al@·ç1ïîÛbüüC?·A÷øV˜¡t©˜™$n{âXCèu­rşë®â^°¡0È,ÿaÌ·— É^Ä¸r7²Î[jÏÆƒü·u¥´XT~ßb‹¦-¶Z~ç¡âOâøŠ±?kÄÛa”GFÃé¤u&3œ¸’ô2ÿŒ³A¤0$%z¥gRş÷uøâCL5ìCgß©ôbB"["ÙJW‰›­5²N$÷7ğg•P[T$ê,·ĞÑ^ñ,ûäº”ıXÂÚl‰YI·™ÃiºÅ†Û-ân—•Eç+maö;€$s#’ÍR’¯tkŒjVõ)TfŠfk@¹)”1¹ñ¨©
+¾Øo1­/Àñ%ıƒ9õÅœ&Vv5P,t_…Ø1ê™¿Îë1´Ş¸>öÚ¬ocr:Øk/XàJ¹ÜË¿äƒÚB÷Kd*r)…ßàºìdV"3ØlØch`_‚•Fß¼±şKìÇpïè!¸G_ç#büV=@/e·Bo¸…Š¥èÌ‹&²¢i"Ë‹YJúµÜ¦c±µubä9£÷iö'~"YXŸåJYØ7‚±¤ñşVÀ/Ò	İfÊÏœÏÑ{GV+…ÖëÇ×¦×‰YíÛš}ó…r	t=üÌrÖ¨e8™éãø^„‹º$º¨Ë‚Š™DtætZ—JË²H}ç{7pÄXj†˜«í™qæLLIÔóõYO²g]fï¼„¬~Oê¦Ñw¬
+ÎéRå'*ø¯¸ÿF1» ªlN$ïhÁZİİãÙZğ¸.†>àïÑ…¦HúnÆe¬ã´íìÅÜî‹çì“ãÚØ¯µ†D¦n2ùu^„Å–›"H´öòN?Ç”¹R¸XÑV-e7k¯ÈÙ2A4Îx§×·C ı¹JáOıM{13CE33¶£‘õÌã^ˆœíZ/(£ÊŒ7™wu2ë¥ïø/iÅì=iª`Ó¬a.0ŸBµ1l•(Ğvğï…±º÷½1CT)ÒVC—ÖˆiJŠHBTº+Qe/ÀXÊöãó¡šHú™±%!í,6¦NpqÿãYÜı£ü~<Ç<èeoîÏf1úgáNşÊš;´
+Í2ºF3“­	×ó14á”£ÙbşSeßÆÏ}@ÓÇw´UÊ3QÌÂb5åğ%sÿ=Í¬Zx†ˆ2@(ßø…=ü„º fâN{äu+^¼)-¥7¥©ô–4›Jóå¹äCÆ!î½®ynãEˆÖ}…{©k¾cö@Ô™õãS€=§—±·k
+õÛñAï0’"åıNÆås=&ÎÅı^àH®skç…g„¨·8ÖÙD}òb­3g«G'ıÑlFÅr¤vváÖÁÚµ›}jáÅ;9&Vc
+<Hò×bœ£÷É'æ>ØX‹/r¦Ò9›ñ¬ÕuùUx¢ØF(fú£xZ<=­“u®’ŒbÄşÁS³Xß3x ùÚĞmN¸C;3Ò©UÏœ§Øe_òBwt–QüH<åìŠdÛ”İNÜ»»»k‘¼'€ø%-)DËH¶ìh†{áM«m˜Ùd$½5X‡/k19Øˆ)Ã…¨f’5Ğ‰pú| §ÆSîÎ×Ø…kÆÏ%=¸5"Ùš˜W6ñSLÇÿõÖáX¯‹?SRf°UÁ0z‘£¬+şx3÷ùŸ8+±¢'’VôtáAæi¶<8{XuöTâ.‡¼ßé{İaôM7GæÙjh	­©e¦ÔeLúCÇRºÔ1›-’œÍx¥3’>îì…Ø_VTºÃ›½gæf{ªñşÀÇî0âİBœï¸…œÚ»²\Ìm<ŞsĞâZú²fÏæÑsbü%P†KPz¿s°#—}cj¦B} ôU«Ä^Ú„7æ½Ì=#İB›ZDØ²¥¯©«Nt²ğDàçï…³i.å·McËÄ×mnP 7B(5Ğƒ[Ÿí©ìxYà£:ák9ˆûÚ²‘İ¶ç}‘tŞw‘îÄhT‰¿güxÑT*ù¯—¯k‰Fä‰WÊÕ%ÁxâËš¬Ì¸^ÖˆJğK=c´±FG#Ş$
+4Ìa‹¢î†Ö¢¥ìÍò¬Ÿ™W7A1?9ÍCéÌ¨“EÁï	Œ{ƒx¤~J¶a¨v:Õ–áŸumõ†R´7Œf{ÏCš[em—³ª±±&‚Ş¯‰¤¯jòPY{&åˆc®ŒìÇzËğfìµÙ¬*•ô6ó²'{%²ŠÖ”|±÷ˆePä¸¯¬¾“WKl*z·ø²ºÌSkº¡L(ĞÎ¡­Šêä¹£©rÕÓ/İÃ_K;ˆë2à³ÕË«)m@´†Ôª×06däù¾gŸ|Ü>n'ÿk˜ÃU{ğzµsOw Ç3“r<y}Õ{¡´¦Ò‚“•åX;GìÅ|¬W^û¥±ó35r¨ÁrO-3ÑVó«éÓÒ8úMY4[7î-†²<”’<Xè¹“u>|ZZ‹Ó¥Aü§´×—U`Mi‰Zmù½¬ÒQJm((-ÿµ=òYu¸İÎwA·•Ï½!ûeFö3ñÏ¤÷ˆªX¬;*PéXHŸ8gà“QEmX\N•Ee,óI±;•£·Ñ^ÏGnÇfgf§5N/ü³#õøÒ]¥#ÙˆtÄP¤CIbÿ×<GÙø3WÊn¡9×æ:°‹#ìù%¸®0”Ä€Ÿ8™é.ÜÁªû‡Í©Š'M~zØr³±Eôm[3¦Ø-`ÿ§D{-î¶‹Ú	epÍ½=Ã„—¬µøĞÚ‚[İÄìNŸJyÌd…‡HŒI{‘mE¢bº‡cN+ÿ=hÍÄÖn¾oá×(â¢3¿a^¸[”ôX^²#ÍÊ½>şpõY›e^HÏmaëÅ]–Æğ|l´„Ğ€Eì áÔ&2v}ÅÎ“Û…i[ëqpk#„‚¥?JÌRöÈ{`šy*M3o€ÍìAµù™ğ‚Ù5ïMs-4™qØT†‹¦½ ózŒî¡Ó9IÌñf’˜¬f®×húM|L)5¥ÄÿišŠ9b¬eŠ½§sŠ0…ÙÁtæ‹3Ä¬ô¬PG>6Ì¤ø—ÁQ]i¥QÉ<ïô¯±îøÃí/ÉY|´ÏPŠC†l1šh.ü| ãóªÌ
+Ü½‚²)lŒş†F8øèvÃl6HtKÑ>¸Föø¹×ßQB]Ö¥XøîşÜCê7G'¡`ÄÍâ8›ÃgªÆê-õ¸oK1ÒŠ¸“‹:Ê|æn>ëN¹r@2´½¬‚§2xšJ}YE8›eÃ¸Ü}ì
