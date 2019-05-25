@@ -2,6 +2,10 @@ var products = document.querySelector(`#products`);
 var total = document.querySelector(`#total`);
 var buy = document.querySelector(`#buy`);
 var buyForm = document.querySelector(`#buyForm`);
+var name = document.querySelector(`#name`);
+var number = document.querySelector(`#number`);
+var expiracy = document.querySelector(`#expiracy`);
+var cardCCV = document.querySelector(`#CCV`);
 
 class checkout {
 	constructor() {
@@ -46,11 +50,18 @@ class checkout {
 				method: 'POST',
 				body: formData
 			})
-			.then(response => response.text())
-			.then(text => {
-                alert(text);
+			.then(response => response.json())
+			.then(arrayData => {
+				console.log(arrayData);
 			})
 	}
+
+	// checkCorrectData(){
+	// 	let errors = Array();
+	// 	return (number.value.length === 16);
+	// 	return (cardCCV.value.length === 3);
+	// 	return (cardCCV.value.length === 3);
+	// }
 }
 
 const myCheckout = new checkout();

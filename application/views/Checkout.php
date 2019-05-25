@@ -138,7 +138,7 @@
                                 <a class="button is-rounded is-static">Cardhold full name</a>
                             </p>
                             <p class="control is-expanded">
-                                <input type="text" name="cardName" class="input is-rounded is-shadowless">
+                                <input id="name" type="text" name="cardName" class="input is-rounded is-shadowless">
                             </p>
                         </div>
                         <div class="field has-addons">
@@ -146,7 +146,7 @@
                                 <a class="button is-rounded is-static">Credit card number</p></a>
                             </p>
                             <p class="control is-expanded">
-                                <input type="text" name="cardNumber" class="input is-rounded is-shadowless">
+                                <input id="number" type="text" name="cardNumber" class="input is-rounded is-shadowless">
                             </p>
                         </div>
                         <div class="field has-addons">
@@ -154,7 +154,7 @@
                                 <a class="button is-rounded is-static">Expiration day</a>
                             </p>
                             <p class="control is-expanded">
-                                <input type="date" name="cardExpDay" class="input is-rounded is-shadowless">
+                                <input id="expiracy" type="date" name="cardExpDay" class="input is-rounded is-shadowless">
                             </p>
                         </div>
                         <div class="field has-addons">
@@ -162,7 +162,7 @@
                                 <a class="button is-rounded is-static">CCV number</a>
                             </p>
                             <p class="control is-expanded">
-                                <input type="password" name="cardCCV" class="input is-rounded is-shadowless">
+                                <input id="CCV" type="password" name="cardCCV" class="input is-rounded is-shadowless">
                             </p>
                         </div>
                     </div>
