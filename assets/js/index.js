@@ -279,7 +279,7 @@ class myIndex {
 										<div class="media-content">
 											<div class="content is-marginless">
 												<strong>${arrayData[index].nombre}</strong>
-												<p id="price"><strong>Price: $${arrayData[index].amount*arrayData[index].cantidad}</strong> ($${arrayData[index].amount} e.)</p>
+												<p id="price${arrayData[index].numP}"><strong>Price: $${arrayData[index].amount*arrayData[index].cantidad}</strong> ($${arrayData[index].amount} e.)</p>
 											</div>
 											<nav class="level is-mobile">
 												<div class="level">
@@ -305,7 +305,7 @@ class myIndex {
 						}
 						cartDropdown.innerHTML +=
 							`<a href="http://localhost/HardStore/index.php/Checkout" style="margin-top: 10px !important" href="#productos" class="button is-dark is-fullwidth">
-								<span>Total price: $${totalPrice}</span>
+								<span id="totalPrice">Total price: $${totalPrice}</span>
 								<span class="icon">
 									<i class="fas fa-shopping-basket"></i>
 								</span>
@@ -333,18 +333,26 @@ class myIndex {
 		}
 	}
 
-	changeAmountAndPrize(product) {
+	changeAmountAndPrice(product) {
 		let totalProducts = 0;
-		const amountToRefresh = document.querySelector(`#amount${product}`);
+		let totalPrice = 0;
+		const amountToRefresh = [
+			document.querySelector(`#amount${product}`),
+			document.querySelector(`#price${product}`),
+			document.querySelector(`#totalPrice`),
+		]
 		fetch(`http://localhost/HardStore/index.php/Cart/fillCart`, {})
 		.then(response => response.json())
 		.then(arrayData => {
 			for (let index = 0; index < arrayData.length; index++) {
 				if (arrayData[index].numP === product) {
-					amountToRefresh.innerHTML = arrayData[index].cantidad;
+					amountToRefresh[0].innerHTML = arrayData[index].cantidad;
+					amountToRefresh[1].innerHTML = `<strong>Price: $${arrayData[index].amount*arrayData[index].cantidad}</strong> ($${arrayData[index].amount} e.)`;
 				}
 				totalProducts += parseInt(arrayData[index].cantidad);
+				totalPrice += arrayData[index].amount*arrayData[index].cantidad;
 			}
+			amountToRefresh[2].innerHTML = `Total price: $${totalPrice}`;
 			amountProducts.innerHTML = totalProducts;
 		})
 	}
@@ -357,7 +365,7 @@ class myIndex {
 				method: `POST`,
 				body: formData
 			})
-			setTimeout(() => { myPage.changeAmountAndPrize(product) }, 50);	//Esta demora de 10ms es super necesaria para poder actualizar bien
+			setTimeout(() => { myPage.changeAmountAndPrice(product) }, 50);	//Esta demora de 10ms es super necesaria para poder actualizar bien
 			// el stock, si no existe, se realizara la query a la base de datos antes de que llegue el insert (productos +1) y no se actualizara nada! 
 	}
 
@@ -369,7 +377,7 @@ class myIndex {
 				method: `POST`,
 				body: formData
 			})
-			setTimeout(() => { myPage.changeAmountAndPrize(product) }, 50);	//Esta demora de 10ms es super necesaria para poder actualizar bien
+			setTimeout(() => { myPage.changeAmountAndPrice(product) }, 50);	//Esta demora de 10ms es super necesaria para poder actualizar bien
 			// el stock, si no existe, se realizara la query a la base de datos antes de que llegue el insert (productos +1) y no se actualizara nada! 
 	}
 

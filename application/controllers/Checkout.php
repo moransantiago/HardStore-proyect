@@ -44,10 +44,10 @@ class Checkout extends CI_Controller
             date_default_timezone_set("America/Argentina/Buenos_Aires");
             $moment = date("Y");
             $errors = new stdClass(
-                $this->NAME = false,
-                $this->NUM = false,
-                $this->EXP = false,
-                $this->CCV = false,
+                $this->NAME = "default",
+                $this->NUM = "default",
+                $this->EXP = "default",
+                $this->CCV = "sale",
             );
             $cardName = $this->input->post('cardName');
             $cardName = str_replace(' ', '', $cardName);
@@ -55,34 +55,42 @@ class Checkout extends CI_Controller
             $cardExpDay = $this->input->post('cardExpDay');
             $cardCCV = $this->input->post('cardCCV');
             if (ctype_alpha($cardName) == false) {
-                $errors->NAME = "name cant contain numbers nor symbols";
+                $errors->NAME = "cant contain numbers nor symbols";
                 if ($cardName == null) {
-                    $errors->NAME = "no NAME";
+                    $errors->NAME = "no";
                 }
+            } else {
+                $errors->NAME = "default";
             }
             if (strlen($cardNumber) != 16) {
-                $errors->NUM = "incorrect NUM amount";
-            }
-            if (is_numeric($cardNumber) == false) {
-                $errors->NUM = "num cant contain letters nor symbols";
-                if ($cardNumber == null) {
-                    $errors->NUM = "no NUM";
+                $errors->NUM = "incorrect amount";
+                if (is_numeric($cardNumber) == false) {
+                    $errors->NUM = "cant contain letters nor symbols";
+                    if ($cardNumber == null) {
+                        $errors->NUM = "no";
+                    }
                 }
+            } else {
+                $errors->NUM = "default";
             }
             if (substr($cardExpDay, 0, 4) < $moment) {
-                $errors->EXP = "incorrect NUM expiracy date";
+                $errors->EXP = "incorrect expiracy date";
                 if ($cardExpDay == null) {
-                    $errors->EXP = "no EXP";
+                    $errors->EXP = "no";
                 }
+            } else {
+                $errors->EXP = "default";
             }
             if (strlen($cardCCV) < 2 || strlen($cardCCV) > 4) {
-                $errors->CCV = "incorrect CCV amount";
-            }
-            if(is_numeric($cardCCV) == false){
-                $errors->CCV = "CCV cant contain letters nor symbols";
-                if ($cardCCV == null) {
-                    $errors->CCV = "no CCV";
+                $errors->CCV = "incorrect amount";
+                if (is_numeric($cardCCV) == false) {
+                    $errors->CCV = "cant contain letters nor symbols";
+                    if ($cardCCV == null) {
+                        $errors->CCV = "no";
+                    }
                 }
+            } else {
+                $errors->CCV = "default";
             }
             echo json_encode($errors);
         }
