@@ -2,10 +2,16 @@ var products = document.querySelector(`#products`);
 var total = document.querySelector(`#total`);
 var buy = document.querySelector(`#buy`);
 var buyForm = document.querySelector(`#buyForm`);
-var name = document.querySelector(`#name`);
+
+var fullName = document.querySelector(`#name`);
 var number = document.querySelector(`#number`);
 var expiracy = document.querySelector(`#expiracy`);
 var cardCCV = document.querySelector(`#CCV`);
+
+var cardNameError = document.querySelector(`#cardNameError`);
+var cardNumError = document.querySelector(`#cardNumError`);
+var cardExpError = document.querySelector(`#cardExpError`);
+var cardCCVError = document.querySelector(`#cardCCVError`);
 
 class checkout {
 	constructor() {
@@ -51,17 +57,79 @@ class checkout {
 				body: formData
 			})
 			.then(response => response.json())
-			.then(arrayData => {
-				console.log(arrayData);
+			.then(errors => {
+				myCheckout.notifyErrors(errors);
 			})
 	}
 
-	// checkCorrectData(){
-	// 	let errors = Array();
-	// 	return (number.value.length === 16);
-	// 	return (cardCCV.value.length === 3);
-	// 	return (cardCCV.value.length === 3);
-	// }
+	notifyErrors(errors) {
+		for (let key in errors) {
+			switch (key.hasOwnProperty()) {
+				case "name cant contain numbers nor symbols":
+					this.blankInputNotify(cardNameError);
+					this.setDanger(fullName);
+					break;
+				case "no NAME":
+					this.blankInputNotify(cardNameError);
+					this.setDanger(fullName);
+					break;
+				case "incorrect NUM amount":
+					this.blankInputNotify(cardNumError);
+					this.setDanger(number);
+					break;
+				case "num cant contain letters nor symbols":
+					this.blankInputNotify(cardNumError);
+					this.setDanger(number);
+					break;
+				case "no NUM":
+					this.blankInputNotify(cardNumError);
+					this.setDanger(number);
+					break;
+				case "incorrect NUM expiracy date":
+					this.blankInputNotify(cardExpError);
+					this.setDanger(expiracy);
+					break;
+				case "no EXP":
+					this.blankInputNotify(cardExpError);
+					this.setDanger(expiracy);
+					break;
+				case "incorrect CCV amount":
+					this.blankInputNotify(cardCCVError);
+					this.setDanger(cardCCV);
+					break;
+				case "no CCV":
+					this.blankInputNotify(cardCCVError);
+					this.setDanger(cardCCV);
+					break;
+				default:
+					this.substractDanger(number);
+					this.removeErrorNotify(cardCCVError);
+					break;
+			}
+		}
+	}
+
+	setDanger(input) {
+		input.classList.add("is-danger");
+	}
+
+	substractDanger(input) {
+		input.classList.remove("is-danger");
+	}
+
+	blankInputNotify(notification) {
+		notification.classList.remove(`animated`, `fadeOut`, `faster`);
+		notification.classList.remove(`hide`);
+		notification.classList.add(`animated`, `fadeIn`, `faster`);
+		notification.innerHTML = `This field can not be in blank`;
+	}
+
+	removeErrorNotify(notification) {
+		notification.classList.remove(`animated`, `fadeIn`, `faster`);
+		notification.classList.add(`animated`, `fadeOut`, `faster`);
+		notification.classList.add(`hide`);
+		notification.innerHTML = `default`;
+	}
 }
 
 const myCheckout = new checkout();

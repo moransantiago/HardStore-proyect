@@ -47,8 +47,15 @@ a.is-static{
 	color: #525252 !important;
 }
 
-.input{
+.hide{
+	visibility: hidden;
+}
+
+.inputs{
 	margin-bottom: 3%;
+}
+
+.input{
 	background-color: rgb(212, 212, 212);
 }
 

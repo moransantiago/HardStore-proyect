@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HardStore</title>
+    <title>Checkout</title>
     <link rel="icon" href="<?php echo base_url("assets/img/logo-hs.png") ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <link rel="stylesheet" href="<?php echo base_url('/assets/css/CheckoutStyles.css'); ?>" type="text/css">
@@ -102,68 +102,52 @@
                         Credit card
                     </p>
                 </div>
-                <div class="field is-grouped is-grouped-centered">
-                    <p class="control subtitle is-4 is-marginless">
-                        Cash
-                    </p>
-                    <p class="control">
-                        <div class="field level">
-                            <input id="switchRtlExample" type="checkbox" name="switchRtlExample" class="switch is-rounded is-dark" checked="checked">
-                            <label for="switchRtlExample"></label>
-                        </div>
-                    </p>
-                    <p class="control subtitle is-4">
-                        Credit card
-                    </p>
-                </div>
-                <div class="field is-grouped is-grouped-centered">
-                    <p class="control subtitle is-4 is-marginless">
-                        Cash
-                    </p>
-                    <p class="control">
-                        <div class="field level">
-                            <input id="switchRtlExample" type="checkbox" name="switchRtlExample" class="switch is-rounded is-dark" checked="checked">
-                            <label for="switchRtlExample"></label>
-                        </div>
-                    </p>
-                    <p class="control subtitle is-4">
-                        Credit card
-                    </p>
-                </div>
                 <br>
                 <form id="buyForm" method="POST">
                     <div class="box shadowBox has-text-centered has-background-white">
-                        <div class="field has-addons">
-                            <p class="control">
-                                <a class="button is-rounded is-static">Cardhold full name</a>
-                            </p>
-                            <p class="control is-expanded">
-                                <input id="name" type="text" name="cardName" class="input is-rounded is-shadowless">
-                            </p>
+                        <div class="inputs">
+                            <div class="field is-marginless has-addons">
+                                <p class="control">
+                                    <a class="button is-rounded is-static">Cardhold full name</a>
+                                </p>
+                                <p class="control is-expanded">
+                                    <input id="name" type="text" name="cardName" class="input is-rounded is-shadowless">
+                                </p>
+                            </div>
+                            <p id="cardNameError" class="hide has-text-danger has-text-right">default</p>
                         </div>
-                        <div class="field has-addons">
-                            <p class="control">
-                                <a class="button is-rounded is-static">Credit card number</p></a>
-                            </p>
-                            <p class="control is-expanded">
-                                <input id="number" type="text" name="cardNumber" class="input is-rounded is-shadowless">
-                            </p>
+                        <div class="inputs">
+                            <div class="field is-marginless has-addons">
+                                <p class="control">
+                                    <a class="button is-rounded is-static">Credit card number</p></a>
+                                </p>
+                                <p class="control is-expanded">
+                                    <input id="number" type="text" name="cardNumber" class="input is-rounded is-shadowless">
+                                </p>
+                            </div>
+                            <p id="cardNumError" class="hide has-text-danger has-text-right">default</p>
                         </div>
-                        <div class="field has-addons">
-                            <p class="control">
-                                <a class="button is-rounded is-static">Expiration day</a>
-                            </p>
-                            <p class="control is-expanded">
-                                <input id="expiracy" type="date" name="cardExpDay" class="input is-rounded is-shadowless">
-                            </p>
+                        <div class="inputs">
+                            <div class="field is-marginless has-addons">
+                                <p class="control">
+                                    <a class="button is-rounded is-static">Expiration day</a>
+                                </p>
+                                <p class="control is-expanded">
+                                    <input id="expiracy" type="date" name="cardExpDay" class="input is-rounded is-shadowless">
+                                </p>
+                            </div>
+                            <p id="cardExpError" class="hide has-text-danger has-text-right">default</p>
                         </div>
-                        <div class="field has-addons">
-                            <p class="control">
-                                <a class="button is-rounded is-static">CCV number</a>
-                            </p>
-                            <p class="control is-expanded">
-                                <input id="CCV" type="password" name="cardCCV" class="input is-rounded is-shadowless">
-                            </p>
+                        <div class="inputs">
+                            <div class="field is-marginless has-addons">
+                                <p class="control">
+                                    <a class="button is-rounded is-static">CCV number</a>
+                                </p>
+                                <p class="control is-expanded">
+                                    <input id="CCV" type="password" name="cardCCV" class="input is-rounded is-shadowless">
+                                </p>
+                            </div>
+                            <p id="cardCCVError" class="hide has-text-danger has-text-right">default</p>
                         </div>
                     </div>
                     <div class="column is-5 is-offset-7">

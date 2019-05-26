@@ -25,7 +25,7 @@ class Checkout extends CI_Controller
         $this->load->helper('form');        //helper para poder manejar formularios
         $this->load->helper('security');    //helper para implementar xss_clean y no permitir codigo en inputs
         $this->load->library('form_validation');    //libreria para validar formularios
-        $this->form_validation->set_rules('cardName', 'cardName', 'trim|required|max_length[16]|min_length[16]');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
+        $this->form_validation->set_rules('cardName', 'cardName', 'required|max_length[16]|min_length[16]');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
         $this->form_validation->set_rules('cardNumber', 'cardNumber', 'trim|required');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
         $this->form_validation->set_rules('cardExpDay', 'cardExpDay', 'trim|required');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
         $this->form_validation->set_rules('cardCCV', 'cardCCV', 'trim|required|max_length[4]|min_length[3]');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
@@ -50,6 +50,7 @@ class Checkout extends CI_Controller
                 $this->CCV = false,
             );
             $cardName = $this->input->post('cardName');
+            $cardName = str_replace(' ', '', $cardName);
             $cardNumber = $this->input->post('cardNumber');
             $cardExpDay = $this->input->post('cardExpDay');
             $cardCCV = $this->input->post('cardCCV');
@@ -68,7 +69,7 @@ class Checkout extends CI_Controller
                     $errors->NUM = "no NUM";
                 }
             }
-            if (substr($cardExpDay, 4) < $moment) {
+            if (substr($cardExpDay, 0, 4) < $moment) {
                 $errors->EXP = "incorrect NUM expiracy date";
                 if ($cardExpDay == null) {
                     $errors->EXP = "no EXP";
@@ -76,6 +77,9 @@ class Checkout extends CI_Controller
             }
             if (strlen($cardCCV) < 2 || strlen($cardCCV) > 4) {
                 $errors->CCV = "incorrect CCV amount";
+            }
+            if(is_numeric($cardCCV) == false){
+                $errors->CCV = "CCV cant contain letters nor symbols";
                 if ($cardCCV == null) {
                     $errors->CCV = "no CCV";
                 }
