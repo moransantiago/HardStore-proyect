@@ -56,22 +56,23 @@ class checkout {
 				method: 'POST',
 				body: formData
 			})
-			.then(response => response.json())
+			.then(response => response.text())
 			.then(errors => {
-				const input = [
-					fullName,
-					number,
-					expiracy,
-					cardCCV
-				];
-				const messages = [
-					cardFullNameError,
-					cardNumberError,
-					cardExpiracyError,
-					cardCardCCVError
-				];
-				const keyValue = Object.values(errors);
-				myCheckout.notifyErrors(input, messages, keyValue);
+				console.log(errors);
+				// const input = [
+				// 	fullName,
+				// 	number,
+				// 	expiracy,
+				// 	cardCCV
+				// ];
+				// const messages = [
+				// 	cardFullNameError,
+				// 	cardNumberError,
+				// 	cardExpiracyError,
+				// 	cardCardCCVError
+				// ];
+				// const keyValue = Object.values(errors);
+				// myCheckout.notifyErrors(input, messages, keyValue);
 			})
 	}
 

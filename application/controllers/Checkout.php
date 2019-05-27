@@ -25,21 +25,21 @@ class Checkout extends CI_Controller
         $this->load->helper('form');        //helper para poder manejar formularios
         $this->load->helper('security');    //helper para implementar xss_clean y no permitir codigo en inputs
         $this->load->library('form_validation');    //libreria para validar formularios
-        $this->form_validation->set_rules('cardName', 'cardName', 'required|max_length[16]|min_length[16]');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
-        $this->form_validation->set_rules('cardNumber', 'cardNumber', 'trim|required');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
+        $this->form_validation->set_rules('cardName', 'cardName', 'required');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
+        $this->form_validation->set_rules('cardNumber', 'cardNumber', 'trim|required|max_length[16]|min_length[16]');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
         $this->form_validation->set_rules('cardExpDay', 'cardExpDay', 'trim|required');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
         $this->form_validation->set_rules('cardCCV', 'cardCCV', 'trim|required|max_length[4]|min_length[3]');    //setea reglas de obligatoriedad para llenar el campo (trim limpia spaces)
         if ($this->form_validation->run()) {    //si se corre el form
-            // $cardName = $this->input->post('cardName');	//recibo el post y almaceno el usuario ingresado en el input en la variable username
-            // $cardNumber = $this->input->post('cardNumber');	//recibo el post y almaceno la pass ingresada en el input en la variable password
-            // $cardExpDay = $this->input->post('cardExpDay');	//recibo el post y almaceno la pass ingresada en el input en la variable password
-            // $cardCCV = $this->input->post('cardCCV');	//recibo el post y almaceno la pass ingresada en el input en la variable password
-            // $cardName = $this->security->xss_clean($cardName);	//limpio campos
-            // $cardNumber = $this->security->xss_clean($cardNumber);	//limpio campos
-            // $cardExpDay = $this->security->xss_clean($cardExpDay);	//limpio campos
-            // $cardCCV = $this->security->xss_clean($cardCCV);	//limpio campos
-            // $this->load->model('BDLogin');	//se carga el modelo que hace consultas con la database hardstore
-            echo "success";
+            $cardName = $this->input->post('cardName');	//recibo el post y almaceno el usuario ingresado en el input en la variable username
+            $cardNumber = $this->input->post('cardNumber');	//recibo el post y almaceno la pass ingresada en el input en la variable password
+            $cardExpDay = $this->input->post('cardExpDay');	//recibo el post y almaceno la pass ingresada en el input en la variable password
+            $cardCCV = $this->input->post('cardCCV');	//recibo el post y almaceno la pass ingresada en el input en la variable password
+            $cardName = $this->security->xss_clean($cardName);	//limpio campos
+            $cardNumber = $this->security->xss_clean($cardNumber);	//limpio campos
+            $cardExpDay = $this->security->xss_clean($cardExpDay);	//limpio campos
+            $cardCCV = $this->security->xss_clean($cardCCV);	//limpio campos
+            $this->load->model('BDInsertData');	//se carga el modelo que hace consultas con la database hardstore
+            echo $this->BDInsertData->generateOrder($this->session->userdata('username'), $cardName, $cardNumber, $cardExpDay, $cardCCV)->result();	//se carga el modelo que hace consultas con la database hardstore
         } else {
             date_default_timezone_set("America/Argentina/Buenos_Aires");
             $moment = date("Y");

@@ -56,4 +56,9 @@ class BDInsertData extends CI_Model
             $query = $this->db->query("INSERT INTO carrito (cantidad, idCuenta, idUnitario) VALUES (1, (SELECT idCuenta FROM cuentas WHERE cuentas.nombreDeUsuario = '$username'), $idProduct);");
         }
     }
+
+    function generateOrder($username, $cardName, $cardNumber, $cardExpDay, $cardCCV){
+        $this->db->query("INSERT INTO pagos (metodo, propietarioTarjeta, numeroTarjeta, expiracionTarjeta, ccvTarjeta, idCuenta) VALUES ('tarjeta', '$cardName', $cardNumber, '$cardExpDay', $cardCCV, (SELECT idCuenta FROM cuentas WHERE cuentas.nombreDeUsuario = '$username'));");
+        // return $query;
+    }
 }
