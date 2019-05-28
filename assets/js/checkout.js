@@ -11,7 +11,7 @@ var cardCCV = document.querySelector(`#CCV`);
 var cardFullNameError = document.querySelector(`#cardNameError`);
 var cardNumberError = document.querySelector(`#cardNumError`);
 var cardExpiracyError = document.querySelector(`#cardExpError`);
-var cardCardCCVError = document.querySelector(`#cardCCVError`);
+var cardCCVError = document.querySelector(`#cardCCVError`);
 
 class checkout {
 	constructor() {
@@ -56,23 +56,22 @@ class checkout {
 				method: 'POST',
 				body: formData
 			})
-			.then(response => response.text())
+			.then(response => response.json())
 			.then(errors => {
-				console.log(errors);
-				// const input = [
-				// 	fullName,
-				// 	number,
-				// 	expiracy,
-				// 	cardCCV
-				// ];
-				// const messages = [
-				// 	cardFullNameError,
-				// 	cardNumberError,
-				// 	cardExpiracyError,
-				// 	cardCardCCVError
-				// ];
-				// const keyValue = Object.values(errors);
-				// myCheckout.notifyErrors(input, messages, keyValue);
+				const input = [
+					fullName,
+					number,
+					expiracy,
+					cardCCV
+				];
+				const messages = [
+					cardFullNameError,
+					cardNumberError,
+					cardExpiracyError,
+					cardCCVError
+				];
+				const keyValue = Object.values(errors);
+				myCheckout.notifyErrors(input, messages, keyValue);
 			})
 	}
 
